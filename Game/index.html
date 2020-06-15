@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GirlGame</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./src/main.js"></script>
+    <script src="./libs/socket.io.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <canvas id="canvas"></canvas>
+    </div>
+    <script>
+        var socket = io('http://localhost:3000');
+        socket.on('pressedBtn', (btn) => {
+            switch (btn) {
+                case "Left":
+                    pressIt("a");
+                    break;
+                case "Right":
+                    pressIt("d");
+
+                    break;
+                case "Up":
+                    pressIt("w");
+
+                    break;
+                case "Down":
+                    pressIt("s");
+
+                    break;
+            }
+        });
+        function pressIt(btn){
+            if(!keyPresses[btn]) {
+                keyPresses[btn] = true;
+                keyPresses.isPressed = true;
+            }
+        }
+        function releaseIt(btn){
+            if(keyPresses[btn]) {
+                keyPresses[btn] = false;
+                keyPresses.isPressed = false;
+            }
+        }
+        socket.on('releasedBtn', (btn) => {
+            switch (btn) {
+                case "Left":
+                    releaseIt("a");
+                    break;
+                case "Right":
+                    releaseIt("d");
+
+                    break;
+                case "Up":
+                    releaseIt("w");
+
+                    break;
+                case "Down":
+                    releaseIt("s");
+
+                    break;
+            }
+        });
+    </script>
+</body>
+
+</html>

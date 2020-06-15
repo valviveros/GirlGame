@@ -1,0 +1,43 @@
+@font-face {
+  font-family: retro;
+  src: url(../assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf);
+}
+@font-face {
+  font-family: sourceSansProLight;
+  src: url(../assets/fonts/Source_Sans_Pro/SourceSansPro-Light.ttf);
+}
+@font-face {
+  font-family: sourceSansProBold;
+  src: url(../assets/fonts/Source_Sans_Pro/SourceSansPro-Bold.ttf);
+}
+@font-face {
+  font-family: sourceSansProSemiBold;
+  src: url(../assets/fonts/Source_Sans_Pro/SourceSansPro-SemiBold.ttf);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sourceSansProLight;
+  background-color: #EDC3AE;
+  font-size: 21px;
+}
+
+#app {
+  display: flex;
+  flex-flow: column wrap;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+#app canvas {
+  border: 1px solid white;
+  width: 100%;
+  height: 100%;
+}
+
+/*# sourceMappingURL=style.css.map */

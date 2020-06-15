@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/control.css">
+    <script src="./libs/socket.io.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="controller">
+            <div class="dpad">
+              <div class="dpad__button button--vertical">
+                <div class="dpad__arrow arrow--top" ontouchstart="pressBtn('Up')" ontouchend="releaseBtn('Up')"></div>
+                <div class="dpad__arrow arrow--bottom" ontouchstart="pressBtn('Down')" ontouchend="releaseBtn('Down')"></div>
+              </div>
+              <div class="dpad__button button--horizontal">
+                <div class="dpad__center">
+                  <div class="dpad__circle"></div>
+                </div>
+                <div class="dpad__arrow arrow--left" ontouchstart="pressBtn('Left')" ontouchend="releaseBtn('Left')"></div>
+                <div class="dpad__arrow arrow--right" ontouchstart="pressBtn('Right')" ontouchend="releaseBtn('Right')"></div>
+              </div>
+            </div>
+            <div class="middle-pad">
+              <div class="start-select">
+                <div class="start-select__button button--start">
+                  <div class="start-select__interior" ontouchstart="pressBtn('Start')" ontouchend="releaseBtn('Start')"></div>
+                </div>
+                <div class="start-select__button button--select">
+                  <div class="start-select__interior" ontouchstart="pressBtn('Select')" ontouchend="releaseBtn('Select')"></div>
+                </div>
+              </div>
+            </div>
+            <div class="rightControls">
+                <div class="right-controls__circle"></div>
+                <div class="button-group button-group--top">
+                  <div class="button-group__button button--x" ontouchstart="pressBtn('X')" ontouchend="releaseBtn('X')"></div>
+                  <div class="button-group__button button--y" ontouchstart="pressBtn('Y')" ontouchend="releaseBtn('Y')"></div>
+                </div>
+                <div class="button-group button-group--bottom">
+                  <div class="button-group__button button--a" ontouchstart="pressBtn('A')" ontouchend="releaseBtn('A')"></div>
+                  <div class="button-group__button button--b" ontouchstart="pressBtn('B')" ontouchend="releaseBtn('B')"></div>
+                </div>
+              </div>
+            </div>
+    </div>
+    <script>
+      var socket = io('http://192.168.39.138:3000');
+
+        function pressBtn(btn){
+            console.log(`${btn} si pressed`);
+            socket.emit('pressedBtn', btn);
+        }
+        function releaseBtn(btn){
+            console.log(`${btn} si released`);
+            socket.emit('releasedBtn', btn);
+        }
+
+    </script>
+</body>
+</html>
