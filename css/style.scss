@@ -1,0 +1,109 @@
+// sass --watch css:css
+$backgroundColor: #EDC3AE;
+$bodyFont: sourceSansProLight;
+$titleFont: sourceSansProBold;
+$optionFont: sourceSansProSemiBold;
+
+@font-face {
+    font-family: sourceSansProLight;
+    src: url(../assets/fonts/Source_Sans_Pro/SourceSansPro-Light.ttf);
+}
+@font-face {
+font-family: sourceSansProBold;
+src: url(../assets/fonts/Source_Sans_Pro/SourceSansPro-Bold.ttf);
+}
+@font-face {
+font-family: sourceSansProSemiBold;
+src: url(../assets/fonts/Source_Sans_Pro/SourceSansPro-SemiBold.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $bodyFont;
+    background-color: $backgroundColor;
+    font-size: 21px;
+}
+
+#app {
+    display: flex;
+    flex-flow: column wrap;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    canvas {
+       border: 1px solid white;
+       width: 100%;
+       height: 100%;
+    }
+}
+
+.wrapper, #control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+#control {
+    width: 95%;
+    height: 75%;
+    border-radius: 40px;
+    border: 4px solid #0c0c0c;
+    padding: 20px;
+    .btn{
+        border: 1px solid red;
+        border-radius: 50%;
+    }
+    .left, .center, .right{
+        height: 100%;
+    }
+    .left, .right{
+        flex: 40%;
+        width: 100%;
+        display: flex;
+        justify-content:center;
+        align-items: stretch;
+        padding: 4vw;
+        .btns{
+            display: grid;
+            width: 100%;
+            justify-items: stretch;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: auto;
+            column-gap: 10px;
+            row-gap: 15px;
+            grid-template-areas: 
+            ". up ."
+            "left . right"
+            ". down .";
+            div{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+    .center{
+        flex: 20%;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 2vw;
+        div{
+            width: 50%;
+            border: 1px solid blue;
+            margin: 5px;
+            text-align: center;
+            padding: 5px 15px;
+            border-radius: 15px;
+        }
+    }
+}
+
