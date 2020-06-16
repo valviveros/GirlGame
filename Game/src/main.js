@@ -24,23 +24,42 @@ var currentFrame = 0;
 var trackLeft = 1;
 // the 0th (first) row is for the right movement
 var trackRight = 0;
+var speedMovement = 5;
 
-var canvas; 
+var fishX = 200;
+var fishY = 75;
+var fishW = 48;
+var fishH = 28;
+
+var collisionDetected = 0;
+
+var canvas;
+var canvas2;
 
 let keyPresses = {
     isPressed: false
 };
+
 window.onload = function () {
 
     let viewDirection = trackRight;
 
     var character = new Image();
-    character.src = "./assets/img/TeddySpriteSheet.png";
+    character.src = "./assets/img/FoxySpriteSheet.png";
+    var fishy = new Image();
+    fishy.src = "./assets/img/Fishy.png";
+
+    var soundFish = new Audio('./assets/audio/pickup.wav');
+
     character.onload = () => {
         canvas = document.getElementById('canvas');
         canvas.width = canW;
         canvas.height = canH;
         var ctx = canvas.getContext('2d');
+        canvas2 = document.getElementById('canvas2');
+        canvas2.width = canW;
+        canvas2.height = canH;
+        var ctx2 = canvas2.getContext('2d');
 
         function updateFrame() {
             currentFrame = ++currentFrame % cols;
@@ -57,30 +76,50 @@ window.onload = function () {
             srcY = viewDirection * height;
 
             if (keyPresses.a) {
-                srcY = trackLeft * height;
                 viewDirection = trackLeft;
-                x -= 5;
+                moveCharacter(-speedMovement, 0);
             } else if (keyPresses.d) {
-                x += 5;
-                srcY = trackRight * height;
                 viewDirection = trackRight;
+                moveCharacter(speedMovement, 0);
             }
-            
+
             if (keyPresses.w) {
-                srcY = trackRight * height;
                 viewDirection = trackRight;
-                y -= 5;
+                moveCharacter(0, -speedMovement);
             } else if (keyPresses.s) {
-                y += 5;
-                srcY = trackRight * height;
                 viewDirection = trackRight;
+                moveCharacter(0, speedMovement);
             }
             ctx.clearRect(x, y, width, height);
+        }
+        fishy.onload = () => {
+            ctx2.drawImage(fishy, fishX, fishY);
         }
 
         function drawImage() {
             updateFrame();
             ctx.drawImage(character, srcX, srcY, width, height, x, y, width, height);
+        }
+
+        function moveCharacter(deltaX, deltaY) {
+            if (x + deltaX > 0 && x + width + deltaX < canW) {
+                x += deltaX;
+            }
+            if (y + deltaY > 0 && y + height + deltaY < canH) {
+                y += deltaY;
+            }
+            checkCollision(x-25, y-25);
+        }
+
+        function checkCollision(charX, charY) {
+            if (charX < fishX + fishW && charX + width > fishX && charY < fishY + fishH && charY + height > fishY) {
+                console.log('pescado x');
+                ctx2.clearRect(fishX, fishY, fishW, fishH);
+                collisionDetected += 1;
+                if (collisionDetected == 1) {
+                    soundFish.play();
+                }
+            }
         }
 
         setInterval(function () {
